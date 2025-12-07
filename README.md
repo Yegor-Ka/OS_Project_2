@@ -1,49 +1,35 @@
-User-Level Threading Library in C
+🧵 uthreads — User-Level Thread Library
 
-Authors: Yegor Karaev, Ram Eliyahu Hamrani (https://github.com/RamHamrani)
+Reichman University – Operating Systems – Spring 2025
 
-A lightweight user-level threading library implemented in C as part of an Operating Systems project.
-This library provides user-space concurrency using setjmp/longjmp, manual context switching, signal-based preemption, and full thread lifecycle management — all without relying on kernel threads.
+👥 Authors
 
-This project demonstrates low-level systems programming, CPU context manipulation, memory management, and custom scheduling logic.
+Yegor Karaev
+Ram Eliyahu Hamrani — (https://github.com/RamHamrani)
 
-🚀 Features
-✔ User-Level Thread Creation
+📦 Project Overview
 
-Manually allocates a dedicated stack for each thread
+This project implements a full user-level threading library in C, supporting preemptive scheduling, context switching, sleep functionality, thread blocking, and a complete thread lifecycle.
+The implementation uses:
 
-Initializes thread context using setjmp
+sigsetjmp / siglongjmp for context switching
 
-Begins execution at a user-defined start function
+A virtual timer (SIGVTALRM) for preemptive quantum-based scheduling
 
-✔ Preemptive Scheduling
+Per-thread stacks
 
-Implements a timer-based scheduler using SIGVTALRM
+A ready queue, blocked queue, and TCB array
 
-Each quantum triggers a context switch via signal handler
+C23 standard, compiled with GCC-13 on Ubuntu 24.04 LTS
 
-Round-robin or priority-based scheduling (depending on assignment spec)
+All core logic is implemented according to the assignment requirements and aligned with UNIX signal & timer behavior.
 
-✔ Full Thread Lifecycle
+🛠 Compilation
+gcc -std=c23 -Wall -Wextra -o uthreads uthreads.c
 
-READY → RUNNING → BLOCKED → TERMINATED states
 
-Controlled transitions and safe cleanup of resources
+(Adjust filename if needed.)
 
-Thread blocking/unblocking supported via API functions
+🏁 Final Score
 
-✔ Context Switching
-
-Saves CPU state using setjmp
-
-Restores registers & program counter using longjmp
-
-Enables seamless switching between multiple user threads
-
-✔ Memory Management
-
-Each thread receives its own allocated stack
-
-Proper stack pointer + program counter initialization
-
-Cleanup performed on thread termination to avoid leaks
+🥇 88 / 100
